@@ -1,0 +1,29 @@
+{
+	"id": "6e3606e4-3b19-481d-ac51-5333e39dfd73",
+	"name": "Hotel QA",
+	"values": [
+		{
+			"key": "url_base",
+			"value": "restful-booker.herokuapp.com",
+			"enabled": true
+		},
+		{
+			"key": "token",
+			"value": "7c0846aed1d86db",
+			"enabled": true
+		},
+		{
+			"key": "ID",
+			"value": 77,
+			"enabled": true
+		},
+		{
+			"key": "ID2",
+			"value": "77",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-08-24T17:45:27.181Z",
+	"_postman_exported_using": "Postman/7.29.1"
+}

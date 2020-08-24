@@ -1,0 +1,64 @@
+{
+	"id": "45c7f191-ea9e-4342-b654-cd55d6627e6e",
+	"name": "QA-SM",
+	"values": [
+		{
+			"key": "url_base",
+			"value": "webapi.segundamano.mx",
+			"enabled": true
+		},
+		{
+			"key": "base64",
+			"value": "YWdlbnRlN2RhbGVjcW54Nm9AbWFpbGluYXRvci5jb206NTQzMjE=",
+			"enabled": true
+		},
+		{
+			"key": "email",
+			"value": "agente7dalecqnx6o@mailinator.com",
+			"enabled": true
+		},
+		{
+			"key": "password",
+			"value": "54321",
+			"enabled": true
+		},
+		{
+			"key": "correoValido",
+			"value": "lp.lulu77@gmail.com",
+			"enabled": true
+		},
+		{
+			"key": "passwordValido",
+			"value": "PugB3rt0...!_",
+			"enabled": true
+		},
+		{
+			"key": "Base64",
+			"value": "bHAubHVsdTc3QGdtYWlsLmNvbTpQdWdCM3J0MC4uLiFf",
+			"enabled": true
+		},
+		{
+			"key": "acces_token",
+			"value": null,
+			"enabled": true
+		},
+		{
+			"key": "access_token",
+			"value": "mc1xceca67087024b02be47991a7672f13a67e30e9ae_v2",
+			"enabled": true
+		},
+		{
+			"key": "Token_uuid_Atoken",
+			"value": "Zjc4NmVhMmEtZDY4NS00MGNlLThkYWUtNjI4MmI3NjBlMzE3Om1jMXgyNWRmZDE2NThjODUzZjhiNmI2ZmFiZjRmOGFlYTBlYzAzMGUyZDIxX3Yy",
+			"enabled": true
+		},
+		{
+			"key": "uuid",
+			"value": "f786ea2a-d685-40ce-8dae-6282b760e317",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-08-24T17:46:58.496Z",
+	"_postman_exported_using": "Postman/7.29.1"
+}

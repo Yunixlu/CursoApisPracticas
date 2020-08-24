@@ -1,0 +1,504 @@
+{
+	"info": {
+		"_postman_id": "e53eb1a4-811f-436e-875e-7f82f418f2e1",
+		"name": "Spotify",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "320d1da0-7aa4-46a5-bc24-b503606a4fa5",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"//Health Check",
+							"pm.test(\"Validar estatus sea 200\", function(){",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"//Extra",
+							"pm.test(\"Validar usuario\", function(){",
+							"    pm.expect(pm.response.text()).to.include(\"yuninuy\");",
+							"});",
+							"",
+							"pm.test(\"Validar fecha nacimiento\",function(){",
+							"        pm.expect(jsonData.birthdate).to.be.equal(\"1991-05-20\")",
+							"});",
+							"",
+							"pm.test(\"Validar cuenta premium\", function(){",
+							"    pm.expect(pm.response.text()).to.include(\"premium\");",
+							"});",
+							"",
+							"pm.test(\"Validar que existe followers\", function(){",
+							"    pm.expect(pm.response.text()).to.include(\"followers\");",
+							"});",
+							"",
+							"pm.test(\"Validar total followers\", function(){",
+							"    pm.expect(jsonData.followers.total).to.be.equal(9);",
+							"});",
+							"",
+							"",
+							"let email = pm.response.json().email",
+							"let dominio2 = email.split('@')[1];",
+							"//pm.environment.set(\"dominio\", email.split('@')[1]);",
+							"//var dominio1 = pm.environment.get(\"dominio\");",
+							"pm.test(\"Validar que correo sea gmail\", function(){",
+							"    pm.expect(dominio2).to.be.equal(\"gmail.com\");",
+							"});",
+							"",
+							"console.log(\"Email\", email)",
+							"console.log(\"Dominio\",dominio2)",
+							"",
+							"/*",
+							"pm.test(\"Validar campo\", function(){",
+							"    pm.expect(jsonData[0].bookingid).not.eq(\"undefined\")",
+							"});",
+							"*/",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "BQAfhG1wTZCKts7jmgA1_r6Wnirk4nfyqd3NMzoFEEDr4sUhAh7UZzBDhHlm_oND7Dj7onkjf4Z1mYNaRXj6J76A-89OtPVAv1_t9Ao0Fn2J8vZEqK1QapXQQlFdYiwco44BGDZ_wlOYbZUz_Ghe6W93w6hl_rBZdCwCxXx8NC-AgeaGVwm2ZFoGa7sr43JsdCtee_kwqhO33-dtpEFQuMMZSgWFBYVCIqL8p2gIlCTkbTin12I7PBHlvelwZo74HyHO9ixM_isiURCZElkmRUE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/v1/me",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Playlists",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c29da3cb-394b-4f97-b216-2f20036d87b7",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var listas = jsonData.items.length;",
+							"var totalListas = jsonData.total;",
+							"",
+							"console.log(\"Imprimir listas\", listas)",
+							"console.log(\"Total playslits\", totalListas)",
+							"",
+							"//Health Check",
+							"pm.test(\"Validar estatus sea 200\", function(){",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Validar  estatus sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"//Extra",
+							"pm.test(\"Validar lista existente\", function(){",
+							"    pm.expect(pm.response.text()).to.include(\"Trip\");",
+							"});",
+							"",
+							"pm.test(\"Validar playlist mayor a 0 por página\", function(){",
+							"    //pm.expect(jsonData.items.length).to.be.equal(listas);",
+							"    pm.expect(listas > 0)",
+							"});",
+							"",
+							"pm.test(\"Validar playlists por página igual a 20\", function(){",
+							"    pm.expect(listas).to.be.equal(20);",
+							"});",
+							"",
+							"pm.test(\"Validar total de playlists\", function(){",
+							"    pm.expect(totalListas).to.be.equal(92);",
+							"",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "BQCqFIEIoaYM9Qz4-sAhxAtbgBuy8f3Dm9woj-vkFubun1U-prkdQYLpGqBcwPekmOgTz_rxl1-maEE_rufjGw9W_AGHofDJCzoocgl9HT8ml_wpaq7hSfBMXhxUaHpEwUpyHhQZRsnt3ClY78QD10CwzvKJaOKV8-urhL_rR7BRSM-SLpsr8Oj9qf2Lqn1JwLf6H4lUThXs3hI3Dh8vSqspz6m04TKQyQgpZBJjaR11UT815RWUaveTgD6YoCR3XFHpCPuYYQuh_8OKAUm2Pds",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/v1/me/playlists",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"me",
+						"playlists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una playlist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b92afaa4-0fac-4e64-afbf-05db9606b7b9",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var limitSongs = jsonData.limit;",
+							"",
+							"console.log(\"Limite\", limitSongs)",
+							"",
+							"//Health Check",
+							"pm.test(\"Validar estatus sea 200\", function(){",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"//Extra",
+							"let url = pm.response.json().href;",
+							"let idPlaylist = url.split('/')[5];",
+							"console.log(\"Id\", idPlaylist)",
+							"pm.test(\"Validar id Playlist\", function(){",
+							"    pm.expect(idPlaylist).to.be.equal(\"37i9dQZF1DX8ucVJaqqjpS\");",
+							"});",
+							"",
+							"pm.test(\"Validar país México\", function(){",
+							"    pm.expect(pm.response.text()).to.include(\"MX\");",
+							"});",
+							"",
+							"pm.test(\"Validar canciones por página\", function(){",
+							"    pm.expect(limitSongs > 0 && limitSongs <= 100)",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "BQCqFIEIoaYM9Qz4-sAhxAtbgBuy8f3Dm9woj-vkFubun1U-prkdQYLpGqBcwPekmOgTz_rxl1-maEE_rufjGw9W_AGHofDJCzoocgl9HT8ml_wpaq7hSfBMXhxUaHpEwUpyHhQZRsnt3ClY78QD10CwzvKJaOKV8-urhL_rR7BRSM-SLpsr8Oj9qf2Lqn1JwLf6H4lUThXs3hI3Dh8vSqspz6m04TKQyQgpZBJjaR11UT815RWUaveTgD6YoCR3XFHpCPuYYQuh_8OKAUm2Pds",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/v1/playlists/37i9dQZF1DX8ucVJaqqjpS/tracks",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"playlists",
+						"37i9dQZF1DX8ucVJaqqjpS",
+						"tracks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un artista",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3ce06468-8922-4480-8b35-2c70daa42020",
+						"exec": [
+							"var jsonData = pm.response.json().popularity;",
+							"//Health Check",
+							"pm.test(\"Validar estatus sea 200\", function(){",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"//Extra",
+							"let url = pm.response.json().external_urls.spotify;",
+							"let idArtist = url.split('/')[4];",
+							"console.log(\"Id\", idArtist)",
+							"pm.test(\"Validar id Playlist\", function(){",
+							"    pm.expect(idArtist).to.be.equal(\"53XhwfbYqKCa1cC15pYq2q\");",
+							"});",
+							"",
+							"pm.test(\"Validar artista\", function(){",
+							"    pm.expect(pm.response.text()).to.include(\"Imagine Dragons\");",
+							"});",
+							"",
+							"pm.test(\"Validar cancions por página\", function(){",
+							"    pm.expect(jsonData).to.be.equal(100);",
+							"    console.log(\"Es el mejor artista\")",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "BQABZ47j4LVersB5T7mzmFgreYo7WqKYWt6ffmA4dqqQwTy1s_WoNR-3HeGWXF6oH6nr86U8Vtznhl_F1k6v02XmvZy9tGcwqNWChxUxVb-Wo9YTvUolDLBclc_v8y0Tha_ptjwK6gMvmtui5YQf7JE6KyVhr4y21qF8uQ126StVPTQtXwCGIygMEP0S9Tfcw3-1ejeU3N19gxCB__8-AfuWosIy_bAsR-zFal05BazkcAHXMfa4W1uRHlctxi1FgnewJ_b4EY-UsfyEJJ2lIQI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.spotify.com/v1/artists/53XhwfbYqKCa1cC15pYq2q",
+					"protocol": "https",
+					"host": [
+						"api",
+						"spotify",
+						"com"
+					],
+					"path": [
+						"v1",
+						"artists",
+						"53XhwfbYqKCa1cC15pYq2q"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener album ",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a6172e89-cf20-46bf-91fe-c1d6da53b580",
+						"exec": [
+							"var jsonData = pm.response.json().popularity;",
+							"//Check health",
+							"pm.test(\"Validar estatus\", function(){",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Validar sea json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4d696c9-91f7-4fb9-8765-93a094a04f88",
+						"exec": [
+							"//Health Check",
+							"pm.test(\"Validar estatus sea 200\", function(){",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "BQABZ47j4LVersB5T7mzmFgreYo7WqKYWt6ffmA4dqqQwTy1s_WoNR-3HeGWXF6oH6nr86U8Vtznhl_F1k6v02XmvZy9tGcwqNWChxUxVb-Wo9YTvUolDLBclc_v8y0Tha_ptjwK6gMvmtui5YQf7JE6KyVhr4y21qF8uQ126StVPTQtXwCGIygMEP0S9Tfcw3-1ejeU3N19gxCB__8-AfuWosIy_bAsR-zFal05BazkcAHXMfa4W1uRHlctxi1FgnewJ_b4EY-UsfyEJJ2lIQI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.spotify.com/v1/albums/3eiAj6uPlzdAKagriQb3Hq",
+					"protocol": "https",
+					"host": [
+						"api",
+						"spotify",
+						"com"
+					],
+					"path": [
+						"v1",
+						"albums",
+						"3eiAj6uPlzdAKagriQb3Hq"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear playlist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b6a037d-d740-4541-a74a-327d455e1032",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"//Health Check",
+							"pm.test(\"Validar estatus sea 200\", function(){",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "BQAfhG1wTZCKts7jmgA1_r6Wnirk4nfyqd3NMzoFEEDr4sUhAh7UZzBDhHlm_oND7Dj7onkjf4Z1mYNaRXj6J76A-89OtPVAv1_t9Ao0Fn2J8vZEqK1QapXQQlFdYiwco44BGDZ_wlOYbZUz_Ghe6W93w6hl_rBZdCwCxXx8NC-AgeaGVwm2ZFoGa7sr43JsdCtee_kwqhO33-dtpEFQuMMZSgWFBYVCIqL8p2gIlCTkbTin12I7PBHlvelwZo74HyHO9ixM_isiURCZElkmRUE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Nueva playlist\",\n  \"description\": \"Lista creada por api\",\n  \"public\": false\n}"
+				},
+				"url": {
+					"raw": "https://api.spotify.com/v1/users/yuninuy/playlists",
+					"protocol": "https",
+					"host": [
+						"api",
+						"spotify",
+						"com"
+					],
+					"path": [
+						"v1",
+						"users",
+						"yuninuy",
+						"playlists"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

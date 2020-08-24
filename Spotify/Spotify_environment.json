@@ -1,0 +1,24 @@
+{
+	"id": "eba68953-5ad1-40c7-a0d9-49f797679dc8",
+	"name": "Spotify ",
+	"values": [
+		{
+			"key": "url_base",
+			"value": "api.spotify.com",
+			"enabled": true
+		},
+		{
+			"key": "dominio",
+			"value": "gmail.com",
+			"enabled": true
+		},
+		{
+			"key": "Base64",
+			"value": "dW5kZWZpbmVkOnVuZGVmaW5lZA==",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-08-24T17:47:19.076Z",
+	"_postman_exported_using": "Postman/7.29.1"
+}

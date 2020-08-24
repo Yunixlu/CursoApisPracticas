@@ -1,0 +1,1143 @@
+{
+	"info": {
+		"_postman_id": "7cc2abe2-ebd9-4d55-8a66-6cbb53681754",
+		"name": "e-commerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Ver caregorías",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "edde31fa-03c8-4cdd-bfce-191bc93611f5",
+						"exec": [
+							"//Se creo una variable para revisar en la consola que regresa el json",
+							"var jsonData = pm.response.json();",
+							"",
+							"//Revisar en la consola que regresa",
+							"console.log(\"Data\", jsonData.categories[0].categories[0].code)",
+							"console.log(\"Tamaño arreglo categoria general\", jsonData.categories.length)",
+							"console.log(\"Tamaño arreglo categoria específica\", jsonData.categories[0].categories.length)",
+							"console.log(\"Label\", jsonData.categories[0].categories[0].label)",
+							"console.log(\"Máximo de imágenes\", jsonData.categories[0].categories[0].max_images)",
+							"",
+							"//Health Check",
+							"pm.test(\"Validar estatus sea 200\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"//Extra test",
+							"pm.test(\"validar código categoría venta inmuebles\", function(){",
+							"    pm.expect(jsonData.categories[0].categories[0].code).to.be.equal(\"1020\");",
+							"    //Validar las propiedas ",
+							"    pm.expect(jsonData.categories[0].categories[0].code).to.be.a(\"string\");",
+							"});",
+							"",
+							"pm.test(\"Validar nombre primer categoría\", function(){",
+							"    pm.expect(jsonData.categories[0].categories[0].label).to.be.equal(\"Venta inmuebles\")",
+							"});",
+							"",
+							"pm.test(\"Validar máximo imágenes de primer categoría\", function(){",
+							"    pm.expect(jsonData.categories[0].categories[0].max_images).to.equal(20)",
+							"});",
+							"",
+							"pm.test(\"Validar body contiente label\", function(){",
+							"    //To deep valida que debe ser igual",
+							"    pm.expect(pm.response.text()).to.deep.include(\"label\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{url_base}}/nga/api/v1/public/categories/insert?lang=es",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"nga",
+						"api",
+						"v1",
+						"public",
+						"categories",
+						"insert"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "es"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ver categorías 1.1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cfa2884b-fb11-4e6d-847c-a0583f70ad30",
+						"exec": [
+							"//Se creo una variable para revisar en la consola que regresa el json",
+							"var jsonData = pm.response.json();",
+							"",
+							"//Revisar en la consola que regresa",
+							"console.log(\"Data\", jsonData.categories[0].categories[0].code)",
+							"console.log(\"Tamaño arreglo categoria general\", jsonData.categories.length)",
+							"console.log(\"Tamaño arreglo categoria específica\", jsonData.categories[0].categories.length)",
+							"console.log(\"Label\", jsonData.categories[0].categories[0].label)",
+							"console.log(\"Máximo de imágenes\", jsonData.categories[0].categories[0].max_images)",
+							"",
+							"//Health Check",
+							"pm.test(\"Validar estatus sea 200\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"//Extra",
+							"pm.test(\"validar código\", function(){",
+							"    pm.expect(jsonData.categories[0].categories[0].code).to.be.equal(\"1020\");",
+							"    //Validar las propiedas ",
+							"    pm.expect(jsonData.categories[0].categories[0].code).to.be.a(\"string\");",
+							"});",
+							"",
+							"pm.test(\"Validar label\", function(){",
+							"    pm.expect(jsonData.categories[0].categories[0].label).to.be.equal(\"Venta inmuebles\")",
+							"});",
+							"",
+							"pm.test(\"Validar body contiente label\", function(){",
+							"    //pm.expect(pm.response.text()).to.include(\"label\");",
+							"    //To deep valida que debe ser igual",
+							"    pm.expect(pm.response.text()).to.deep.include(\"label\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/nga/api/v1.1/public/categories/filter?lang=es",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"nga",
+						"api",
+						"v1.1",
+						"public",
+						"categories",
+						"filter"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "es"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ver regiones",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20931407-2ef5-40f6-b6a9-0a94a2efc03f",
+						"exec": [
+							"//Se creo una variable para revisar en la consola que regresa el json",
+							"var jsonData = pm.response.json();",
+							"var estados = jsonData.children;",
+							"console.log(\"Estados\", estados)",
+							"",
+							"//Health Check",
+							"pm.test(\"Validar estatus sea 200\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"//Extra",
+							"pm.test(\"Validar body contiente texto Todo México\", function(){",
+							"    //To deep valida que debe ser igual",
+							"    pm.expect(pm.response.text()).to.deep.include(\"Todo México\");",
+							"});",
+							"",
+							"pm.test(\"Validar estados de México\", function(){",
+							"    pm.expect(estados.length === 32)",
+							"});",
+							"",
+							"pm.test(\"Validar Michoacán tiene código 18\", function(){",
+							"    pm.expect(jsonData.locations.code === 18)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/nga/api/v1.1/public/regions?lang=es&depth=1",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"nga",
+						"api",
+						"v1.1",
+						"public",
+						"regions"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "es"
+						},
+						{
+							"key": "depth",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear cuenta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9b9598d-a5e6-47b9-9e4b-ec79085b2c40",
+						"exec": [
+							"//Health Check",
+							"pm.test(\"Validar estatus sea 401\", function(){",
+							"    pm.expect(pm.response.code).to.equal(401);",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"//Extra",
+							"pm.test(\"Validar body contiente texto ACCOUNT_VERIFICATION_REQUIRED\", function(){",
+							"    //To deep valida que debe ser igual",
+							"    pm.expect(pm.response.text()).to.deep.include(\"ACCOUNT_VERIFICATION_REQUIRED\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1d35ca82-ee2f-40eb-b6a4-00f10293525b",
+						"exec": [
+							"//Creammos una variable que mande a llamar una funcion para generar numeros random",
+							"let numrandom = Math.floor(Math.random() * Math.floor(99999999999999999) + 10000);",
+							"//Imprimir en consola ",
+							"console.log(\"Valor correo\", numrandom)",
+							"//Creamos una variable llamada email para formar un correo electronoco",
+							"var email = \"agente\" + numrandom.toString(36) + \"@mailinator.com\";",
+							"//Seteamos una variable de ambiente donde guardamos el correo",
+							"pm.environment.set(\"email\", email)",
+							"//Mostramos en consola el correo",
+							"console.log(\"email\", email);",
+							"//Creamos una variable para concatenar",
+							"var emailFormado = (pm.environment.get(\"email\")).concat(\":\", (pm.environment.get(\"password\")))",
+							"//Encodeamos en base 64 lo concatenado anteriormente",
+							"var encoded = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(emailFormado))",
+							"//Mostramos en cosola lo encodead",
+							"console.log(\"Encode: \", encoded)",
+							"//Seteamos la variable donde se formo nuestro \"Token\"",
+							"pm.environment.set(\"base64\", encoded)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Basic {{base64}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"account\":{\"email\":\"{{email}}\",\"phone\":6556654455,\"name\":\"AgenteVentas\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{url_base}}/nga/api/v1.1/private/accounts?lang=es",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"nga",
+						"api",
+						"v1.1",
+						"private",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "es"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request no Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1ea7cfa8-574d-45f5-875d-9a2569d9ce92",
+						"exec": [
+							"//Health Check",
+							"pm.test(\"Validar estatus sea 401\", function(){",
+							"    pm.expect(pm.response.code).to.equal(401);",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Validar body contiente UNAUTHORIZED\", function(){",
+							"    //To deep valida que debe ser igual",
+							"    pm.expect(pm.response.text()).to.deep.include(\"UNAUTHORIZED\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/nga/api/v1.1/private/accounts?lang=es",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"nga",
+						"api",
+						"v1.1",
+						"private",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "es"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request Crear Token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2fc13697-af11-401d-b9e4-a43b7bf0e9ef",
+						"exec": [
+							"//Se manda llamar la variable",
+							"var email = pm.environment.get('correoValido')",
+							"var pass = pm.environment.get('passwordValido')",
+							"",
+							"console.log(email,pass)",
+							"",
+							"let encodeKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(email + \":\" +pass));",
+							"//setear la variable",
+							"",
+							"pm.environment.set(\"Base64\",encodeKeys)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "656921cb-0f22-4ae1-9d9b-74fe6080ef9b",
+						"exec": [
+							"var jsonData = pm.response.json()",
+							"console.log(jsonData.access_token)",
+							"",
+							"pm.environment.set(\"access_token\", jsonData.access_token)",
+							"",
+							"console.log(\"Imprimir correo: \",jsonData.account.email)",
+							"console.log(\"Imprimir nombre: \", jsonData.account.name)",
+							"console.log(\"Imprimir código región: \", jsonData.account.locations[0].code)",
+							"console.log(\"Imprimir código muncipio\", jsonData.account.locations[0].locations[0].label)",
+							"",
+							"//Health Check",
+							"pm.test(\"Validar estatus sea success\", function(){",
+							"    pm.response.to.be.success;",
+							"});",
+							"",
+							"pm.test(\"Validar estatus sea 200\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"//Extra",
+							"pm.test(\"Validar correo\", function(){",
+							"    pm.expect(jsonData.account.email).to.be.equal(\"lp.lulu77@gmail.com\")",
+							"});",
+							"",
+							"pm.test(\"Validar nombre\", function(){",
+							"    pm.expect(jsonData.account.name).to.be.equal(\"Agente 77\")",
+							"});",
+							"",
+							"pm.test(\"Validar código región\", function(){",
+							"    pm.expect(jsonData.account.locations[0].code).to.be.equal(\"16\")",
+							"});",
+							"",
+							"pm.test(\"Validar muncipio\", function(){",
+							"    pm.expect(jsonData.account.locations[0].locations[0].label).to.be.equal(\"Zapopan\")",
+							"});",
+							"",
+							"let accountid = jsonData.account.account_id;",
+							"let id = accountid.split('/')[3];",
+							"console.log(\"id\", id)",
+							"pm.test(\"Validar el id de la cuenta\", function(){",
+							"    pm.expect(id).to.be.equal(\"10805975\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{Base64}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{url_base}}/nga/api/v1.1/private/accounts?lang=es",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"nga",
+						"api",
+						"v1.1",
+						"private",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "es"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Anuncio",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6030883c-09ce-433b-bbea-5804f2f40c96",
+						"exec": [
+							"//var email = pm.environment.get('correoValido')",
+							"let email = \"lp.lulu77@gmail.com\";",
+							"console.log(\"Email: \", email);",
+							"var pass = pm.environment.get('passwordValido')",
+							"let encodeKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(email + \":\" + pass));",
+							" pm.environment.set(\"Base64\",encodeKeys)",
+							"",
+							"pm.sendRequest({",
+							"        url:'https://webapi.segundamano.mx/nga/api/v1.1/private/accounts?lang=es',",
+							"            method: 'POST',",
+							"            header: 'Authorization: Basic ' + encodeKeys,",
+							"            }, function(err, res){",
+							"            //console.log(\"Res SendRequest: \",res )",
+							"            var jsonResponse = res.json()",
+							"            console.log(\"jsonresponse: \", jsonResponse.access_token)",
+							"            pm.environment.set(\"access_token\", jsonResponse.access_token)",
+							"            pm.environment.set(\"uuid\",jsonResponse.account.uuid)",
+							"            });",
+							"",
+							"    var token = pm.environment.get('access_token')",
+							"    var uuid = pm.environment.get('uuid')",
+							"    console.log(\"Imprimir\", uuid)",
+							"    let encode = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(uuid + \":\" + token));",
+							"    pm.environment.set(\"Token_uuid_Atoken\",encode)",
+							"    "
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3c8c570e-abc0-4bde-a185-d3693435e953",
+						"exec": [
+							"//Health Check",
+							"pm.test(\"Validar estatus sea success\", function(){",
+							"    pm.response.to.be.success;",
+							"});",
+							"",
+							"pm.test(\"Validar estatus sea 200\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"//Extra",
+							"pm.test(\"Validar región del país\", function () {",
+							"    pm.expect(pm.response.text()).to.deep.include(\"Sonora\");",
+							"});",
+							"",
+							"let jsonData = pm.response.json();",
+							"pm.test(\"Validar que el anuncio sea de Servicios\", function(){",
+							"    pm.expect(jsonData.data.ad.category.parent.parent.code).to.be.equal('8000');",
+							"});",
+							"",
+							"console.log(\"código región\", jsonData.data.ad.category.parent.parent.code)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-source",
+						"value": "PHOENIX_DESKTOP",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic {{Token_uuid_Atoken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"category\":\"8041\",\n    \"subject\":\"Servico de consultoria\",\n    \"body\":\"Consultoría de arquitectos a tus ordenes, pregunta por nuestros servicios\",\n    \"price\":\"1\",\n    \"region\":\"28\",\n    \"municipality\":\"1963\",\n    \"area\":\"83521\",\n    \"phone_hidden\":\"true\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://webapi.segundamano.mx/accounts/f786ea2a-d685-40ce-8dae-6282b760e317/up",
+					"protocol": "https",
+					"host": [
+						"webapi",
+						"segundamano",
+						"mx"
+					],
+					"path": [
+						"accounts",
+						"f786ea2a-d685-40ce-8dae-6282b760e317",
+						"up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear dirección",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6bc01d10-49ab-4d24-b862-981a80793317",
+						"exec": [
+							"//Se creo una variable para revisar en la consola que regresa el json",
+							"var jsonData = pm.response.json();",
+							"",
+							"//Health Check",
+							"pm.test(\"Validar estatus sea 201\", function(){",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"//Extra",
+							"pm.test(\"Validar texto addressID\", function(){",
+							"    pm.expect(pm.response.text()).to.include(\"addressID\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "33a9154e-6070-440b-b9ef-bbb965059a27",
+						"exec": [
+							"//var email = pm.environment.get('correoValido')",
+							"let email = \"lp.lulu77@gmail.com\";",
+							"console.log(\"Email: \", email);",
+							"var pass = pm.environment.get('passwordValido')",
+							"let encodeKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(email + \":\" + pass));",
+							" pm.environment.set(\"Base64\",encodeKeys)",
+							"",
+							"pm.sendRequest({",
+							"        url:'https://webapi.segundamano.mx/nga/api/v1.1/private/accounts?lang=es',",
+							"            method: 'POST',",
+							"            header: 'Authorization: Basic ' + encodeKeys,",
+							"            }, function(err, res){",
+							"            //console.log(\"Res SendRequest: \",res )",
+							"            var jsonResponse = res.json()",
+							"            console.log(\"jsonresponse: \", jsonResponse.access_token)",
+							"            pm.environment.set(\"access_token\", jsonResponse.access_token)",
+							"            pm.environment.set(\"uuid\",jsonResponse.account.uuid)",
+							"            });",
+							"",
+							"    var token = pm.environment.get('access_token')",
+							"    var uuid = pm.environment.get('uuid')",
+							"    console.log(\"Imprimir\", uuid)",
+							"    let encode = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(uuid + \":\" + token));",
+							"    ",
+							"    pm.environment.set(\"Token_uuid_Atoken\",encode)",
+							"    "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{Token_uuid_Atoken}}",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "contact",
+							"value": "Vendedor doce",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "5553768723",
+							"type": "text"
+						},
+						{
+							"key": "rfc",
+							"value": "SYRP821103",
+							"type": "text"
+						},
+						{
+							"key": "zipCode",
+							"value": "76543",
+							"type": "text"
+						},
+						{
+							"key": "exteriorInfo",
+							"value": "Lop%C3%A9z%20Mateos%204213",
+							"type": "text"
+						},
+						{
+							"key": "interiorInfo",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "region",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "municipality",
+							"value": "224",
+							"type": "text"
+						},
+						{
+							"key": "area",
+							"value": "5666",
+							"type": "text"
+						},
+						{
+							"key": "alias",
+							"value": "Mi dirección",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://webapi.segundamano.mx/addresses/v1/create",
+					"protocol": "https",
+					"host": [
+						"webapi",
+						"segundamano",
+						"mx"
+					],
+					"path": [
+						"addresses",
+						"v1",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar dirección",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3d58845e-6898-44cb-bbb3-ca569f6a0208",
+						"exec": [
+							"//var email = pm.environment.get('correoValido')",
+							"let email = \"lp.lulu77@gmail.com\";",
+							"console.log(\"Email: \", email);",
+							"var pass = pm.environment.get('passwordValido')",
+							"let encodeKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(email + \":\" + pass));",
+							" pm.environment.set(\"Base64\",encodeKeys)",
+							"",
+							"pm.sendRequest({",
+							"        url:'https://webapi.segundamano.mx/nga/api/v1.1/private/accounts?lang=es',",
+							"            method: 'POST',",
+							"            header: 'Authorization: Basic ' + encodeKeys,",
+							"            }, function(err, res){",
+							"            //console.log(\"Res SendRequest: \",res )",
+							"            var jsonResponse = res.json()",
+							"            console.log(\"jsonresponse: \", jsonResponse.access_token)",
+							"            pm.environment.set(\"access_token\", jsonResponse.access_token)",
+							"            pm.environment.set(\"uuid\",jsonResponse.account.uuid)",
+							"            });",
+							"",
+							"    var token = pm.environment.get('access_token')",
+							"    var uuid = pm.environment.get('uuid')",
+							"    console.log(\"Imprimir\", uuid)",
+							"    let encode = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(uuid + \":\" + token));",
+							"    ",
+							"    pm.environment.set(\"Token_uuid_Atoken\",encode)",
+							"    "
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "57447d8b-2ff8-44c2-8eda-3994b9c1d0b2",
+						"exec": [
+							"//Health Check",
+							"pm.test(\"Validar estatus sea 200\", function(){",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Validar que se borre dirección\", function(){",
+							"    pm.expect(pm.response.text()).to.include(\"correctly\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{Token_uuid_Atoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{url_base}}/addresses/v1/delete/ed62dc20-dfe1-11ea-a8ce-a75ade2faf3f",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"addresses",
+						"v1",
+						"delete",
+						"ed62dc20-dfe1-11ea-a8ce-a75ade2faf3f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ver vendedores tiempo libre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13c0c1e8-896e-49f0-9f3a-d7f9d2bbcd85",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var tiendas = jsonData.total_count;",
+							"",
+							"//Health Check",
+							"pm.test(\"Validar estatus sea 200\", function(){",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"//Extra",
+							"pm.test(\"Validar vendedores categoría tiempo libre\", function(){",
+							"    pm.expect(tiendas >9)",
+							"});",
+							"",
+							"pm.test(\"Validar librería online\", function(){",
+							"    pm.expect(pm.response.text()).to.include(\"Librería Online\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{url_base}}/shops/api/v1/public/shops?limit=15&cat=4000",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"shops",
+						"api",
+						"v1",
+						"public",
+						"shops"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "15"
+						},
+						{
+							"key": "cat",
+							"value": "4000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener alertas",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c3dc9677-1cd3-48e0-b4e2-ae389d25cc52",
+						"exec": [
+							"//var email = pm.environment.get('correoValido')",
+							"let email = \"lp.lulu77@gmail.com\";",
+							"console.log(\"Email: \", email);",
+							"var pass = pm.environment.get('passwordValido')",
+							"let encodeKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(email + \":\" + pass));",
+							" pm.environment.set(\"Base64\",encodeKeys)",
+							"",
+							"pm.sendRequest({",
+							"        url:'https://webapi.segundamano.mx/nga/api/v1.1/private/accounts?lang=es',",
+							"            method: 'POST',",
+							"            header: 'Authorization: Basic ' + encodeKeys,",
+							"            }, function(err, res){",
+							"            //console.log(\"Res SendRequest: \",res )",
+							"            var jsonResponse = res.json()",
+							"            console.log(\"jsonresponse: \", jsonResponse.access_token)",
+							"            pm.environment.set(\"access_token\", jsonResponse.access_token)",
+							"            pm.environment.set(\"uuid\",jsonResponse.account.uuid)",
+							"            });",
+							"",
+							"    var token = pm.environment.get('access_token')",
+							"    var uuid = pm.environment.get('uuid')",
+							"    console.log(\"Imprimir\", uuid)",
+							"    let encode = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(uuid + \":\" + token));",
+							"    ",
+							"    pm.environment.set(\"Token_uuid_Atoken\",encode)",
+							"    "
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "5fd8dcdc-d1dd-4459-8573-2b722ed6bb0e",
+						"exec": [
+							"//Health Check",
+							"pm.test(\"Validar estatus sea 200\", function(){",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Validar respuesta sea Json\", function(){",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Tiempo de respuesta menor a 200 ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type esta presente\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"//Extra",
+							"pm.test(\"Validar texto alertas\", function(){",
+							"    pm.expect(pm.response.text()).to.include(\"alerts\");",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var alertas = jsonData.data.alerts;",
+							"pm.test(\"validar alertas es un arreglo\", function(){",
+							"    pm.expect(Array.isArray(alertas))",
+							"});",
+							"",
+							"pm.test(\"validar arreglo vacío\", function(){",
+							"    pm.expect(alertas.length === 0)",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{Token_uuid_Atoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{url_base}}/alerts/v1/private/account/f786ea2a-d685-40ce-8dae-6282b760e317/alert",
+					"protocol": "https",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"alerts",
+						"v1",
+						"private",
+						"account",
+						"f786ea2a-d685-40ce-8dae-6282b760e317",
+						"alert"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c258aba7-9e2c-4d1d-b708-1a32a5cd29d1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0b5f080d-cecc-42cb-a635-47722a50fb14",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
